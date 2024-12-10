@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.wordtopdfconverter"
+    namespace = "com.yognevoy.wordtopdfconverter"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.wordtopdfconverter"
+        applicationId = "com.yognevoy.wordtopdfconverter"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

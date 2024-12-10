@@ -1,4 +1,4 @@
-package com.example.wordtopdfconverter
+package com.yognevoy.wordtopdfconverter
 
 import org.junit.Test
 

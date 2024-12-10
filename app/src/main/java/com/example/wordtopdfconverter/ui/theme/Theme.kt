@@ -1,4 +1,4 @@
-package com.example.wordtopdfconverter.ui.theme
+package com.yognevoy.wordtopdfconverter.ui.theme
 
 import android.app.Activity
 import android.os.Build
