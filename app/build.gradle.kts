@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.wordtopdfconverter"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -56,4 +56,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Work with Word and PDF
+    implementation(libs.poi)
+    implementation(libs.poi.ooxml)
+    implementation(libs.itext7.core)
 }
