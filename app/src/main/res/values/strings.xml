@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Word to PDF Converter</string>
+    <string name="menu_item_home">Конвертация</string>
+    <string name="menu_item_file_list">Мои файлы</string>
 </resources>
