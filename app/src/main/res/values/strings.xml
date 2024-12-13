@@ -2,4 +2,11 @@
     <string name="app_name">Word to PDF Converter</string>
     <string name="menu_item_home">Конвертация</string>
     <string name="menu_item_file_list">Мои файлы</string>
+    <string name="file_name_empty">Неизвестно</string>
+    <string name="pick_file_icon">Выбрать документ</string>
+    <string name="pick_file_convert">Выберите документ для конвертации</string>
+    <string name="file_size">Размер: %1$d KB</string>
+    <string name="pick_file">Выбрать документ</string>
+    <string name="convert_file">Конвертировать в PDF</string>
+    <string name="convert_process">Конвертируем файл %1$s в PDF...</string>
 </resources>

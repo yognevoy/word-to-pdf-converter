@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import com.yognevoy.wordtopdfconverter.R
 import com.yognevoy.wordtopdfconverter.screens.FileListScreen
 import com.yognevoy.wordtopdfconverter.screens.HomeScreen
+import com.yognevoy.wordtopdfconverter.viewmodel.HomeViewModel
 
 data class NavigationItem(
     @StringRes val label: Int = 0,
@@ -23,7 +24,7 @@ data class NavigationItem(
                 route = "home_screen",
                 label = R.string.menu_item_home,
                 icon = Icons.Filled.Home
-            ) { navController -> HomeScreen(navController) },
+            ) { navController -> HomeScreen(navController, HomeViewModel()) },
             NavigationItem(
                 route = "file_list_screen",
                 label = R.string.menu_item_file_list,
