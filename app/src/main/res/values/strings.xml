@@ -8,5 +8,6 @@
     <string name="file_size">Размер: %1$d KB</string>
     <string name="pick_file">Выбрать документ</string>
     <string name="convert_file">Конвертировать в PDF</string>
-    <string name="convert_process">Конвертируем файл %1$s в PDF...</string>
+    <string name="convert_process">Конвертируем файл в PDF...</string>
+    <string name="file_list_empty">Список файлов пока пуст.</string>
 </resources>

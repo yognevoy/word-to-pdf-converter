@@ -15,10 +15,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -40,6 +42,8 @@ import com.yognevoy.wordtopdfconverter.viewmodel.HomeViewModel
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
     val context = LocalContext.current
     val selectedFile by viewModel.selectedFile.observeAsState()
+    val isConverting by viewModel.isConverting.observeAsState(false)
+    val conversionCompleted by viewModel.conversionCompleted.observeAsState(false)
 
     val pickFileLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -52,6 +56,21 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
     }
 
     WordToPDFConverterTheme {
+        LaunchedEffect(conversionCompleted) {
+            if (conversionCompleted) {
+                viewModel.resetConversionStatus()
+                navController.navigate("file_list_screen") {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }
+        }
+
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -76,16 +95,18 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
                             fontSize = 16.sp
-                        ),
-                        modifier = Modifier.padding(bottom = 24.dp)
+                        )
                     )
                 } else {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
                             .clip(MaterialTheme.shapes.medium)
-                            .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f), MaterialTheme.shapes.medium)
+                            .border(
+                                1.dp,
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
+                                MaterialTheme.shapes.medium
+                            )
                             .background(MaterialTheme.colorScheme.surface)
                             .padding(16.dp),
                         horizontalAlignment = Alignment.Start
@@ -104,18 +125,32 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
 
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 if (selectedFile == null) {
                     Button(onClick = { pickFileLauncher.launch("application/msword") }) {
                         Text(text = stringResource(R.string.pick_file))
                     }
-                }
-
-                if (selectedFile != null) {
-                    Button(onClick = { viewModel.convertFileToPDF(context) }) {
+                } else {
+                    Button(onClick = { viewModel.startConversion() }) {
                         Text(text = stringResource(R.string.convert_file))
                     }
+                }
+
+                if (isConverting) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.convert_process),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    LinearProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 32.dp),
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
         }
